@@ -31,6 +31,7 @@ int **allocate_dynamic_matrix(int, int);
 void SkipComments(FILE*);
 PGMData* readPGM(const char*,PGMData*);
 void writePGM(const char*,const PGMData*);
+void deallocate_dynamic_matrix(int **matrix, int row);
 
 void bubbleSort(float *distanceArray,int boyut);
 float** distanceMatrice(int boyut, float distanceArray[]);
@@ -54,11 +55,11 @@ int main(){
 	int elemanSayisi;
 	float **matrice;									//renk degerlerini tutucak olan matris								
 	float *sortedArray;									//unique degerlerimizi (sadece 1 tane olan, aynisindan baska elemani bulunmayan) degiskenleri tut
-	float *distanceArray;								//butun uzakliklarin degerlerini tutucak olan array
+	float *distanceArray;								//butun uzakliklarin degerlerini tutucak olan array	(matris arrayi)
 	int renkSayisi;
 	int i = 0, j = 0, k = 0, temp = 0;
 	n=kappa->row;										//n'e editlenilecek resmin satir sayisini ata
-	m=kappa->col;										//n'e editlenilecek resmin sutun sayisini ata
+	m=kappa->col;										//m'e editlenilecek resmin sutun sayisini ata
 	
 	matrice= (float **)malloc(n*sizeof(float *)); 		//matrise hafizadan olarak yer ayýr
 	for (i = 0; i < m; i++)
@@ -142,7 +143,7 @@ int main(){
 			kappa->matrix[i][j]=matrice[i][j];									//PGMData structu'nin icindeki matrix'e matrice'de tutulan(bottom-up hiyerarþi uylulanmis bulunan degerler) degerleri kopyala 
 		}
 	}
-	writePGM(pgmOUTPUT, kappa);													//PGMData structu uzerinde tutulan degerleri kullanarak yeni remi olustur
+	writePGM(pgmOUTPUT, kappa);													//PGMData structu uzerinde tutulan degerleri kullanarak yeni resmi olustur
 	
 	for(i=0;i<n;i++)															//dinamik acilan hafizalari temizle
 		free(matrice[i]);
